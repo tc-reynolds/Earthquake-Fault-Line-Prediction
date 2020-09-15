@@ -29,6 +29,6 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("Longitude: %s Latitude %s\n", record[2], record[3])
+		fmt.Printf("Latitude: %s Longitude %s\n", record[2], record[3])
 	}
 }
