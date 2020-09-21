@@ -1,34 +1,26 @@
-package main
+package util
 
 import (
 	//"bufio"
 	"encoding/csv"
 	"fmt"
-	"io"
+	//"io"
 	"log"
 	"os"
 )
 
-func main() {
+func LoadDatabase() [][]string{
 	// Open the file
-	csvfile, err := os.Open("../data/database.csv")
+	csvFile, err := os.Open("./data/database.csv")
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
 
 	// Parse the file
-	r := csv.NewReader(csvfile)
-
-	// Iterate through the records
-	for {
-		// Read each record from csv
-		record, err := r.Read()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Printf("Latitude: %s Longitude %s\n", record[2], record[3])
-	}
+	r := csv.NewReader(csvFile)
+	records, err := r.ReadAll()
+	fmt.Printf("records[1][2]")
+	fmt.Printf(records[1][2])
+	return records
 }
+

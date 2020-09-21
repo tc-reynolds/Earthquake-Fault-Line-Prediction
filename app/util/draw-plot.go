@@ -1,16 +1,14 @@
-package main
+package util
 
 import (
-    "math/rand"
-
     "gonum.org/v1/plot"
     "gonum.org/v1/plot/plotter"
     "gonum.org/v1/plot/plotutil"
     "gonum.org/v1/plot/vg"
+    "fmt"
 )
 
-func main() {
-    rand.Seed(int64(0))
+func DrawPlot() {
 
     p, err := plot.New()
     if err != nil {
@@ -21,10 +19,8 @@ func main() {
     p.X.Label.Text = "X"
     p.Y.Label.Text = "Y"
 
-    err = plotutil.AddLinePoints(p,
-        "First", graphPoints(15),
-        "Second", randomPoints(15),
-        "Third", randomPoints(15))
+    err = plotutil.AddScatters(p,
+        "Earthquake Report", GraphPoints(LoadDatabase()))
     if err != nil {
         panic(err)
     }
@@ -35,9 +31,9 @@ func main() {
     }
 }
 
-// randomPoints returns some random x, y points.
-func graphPoints(data []int) plotter.XYs {
-    pts := make(plotter.XYs, n)
+// Graph Points returns a scatter graph of data specified in file-reader.
+func GraphPoints(data [][]string) plotter.XYs {
+    pts := make(plotter.XYs, 15)
     for i := range pts {
         if i == 0 {
             pts[i].X = rand.Float64()
